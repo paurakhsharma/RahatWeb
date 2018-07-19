@@ -12,7 +12,6 @@ const request = require('request')
 const session = require("express-session")
 app.use(require('cookie-parser')())
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('public'))
