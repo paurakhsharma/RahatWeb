@@ -50,30 +50,30 @@ module.exports = function (app) {
 		try{
 			const client = await pool.connect()
 			await client.query('BEGIN')
-			var pwd = await bcrypt.hash(req.body.password, 5);
+			var pwd = await bcrypt.hash(req.body.password, 5)
 			var today= new Date().toISOString().slice(0, 10)
-			await JSON.stringify(client.query('SELECT email FROM usertb WHERE "email"=$1', [req.body.email], function(err, result) {
-				if(result.rows[0]){
-					req.flash('warning', "This email address is already registered.");
-					res.redirect('/join');
-				}
-				else{
-					client.query('INSERT INTO usertb (name,citizenshipId,address,phoneNo,creationDate,email, password) VALUES ($1, $2, $3, $4, $5,$6,$7)', [req.body.name, req.body.citizenshipId,req.body.address,req.body.phoneNo,today,req.body.email, pwd], function(err, result) {
+			// await JSON.stringify(client.query('SELECT email FROM usertb WHERE "email"=$1', [req.body.email], function(err, result) {
+			// 	if(result.rows[0]){
+			// 		req.flash('warning', "This email address is already registered.");
+			// 		res.redirect('/join');
+			// 	}
+			// 	else{
+					client.query('INSERT INTO usertb (name,address,citizenshipid,phoneno,creationdate,email, password) VALUES ($1, $2, $3, $4, $5,$6,$7)', [req.body.name,req.body.address, req.body.citizenshipid,req.body.phoneno,today,req.body.email, pwd], function(err, result) {
 						if(err){console.log(err);}
 						else {
 						
 						client.query('COMMIT')
 							console.log(result)
 							req.flash('success','User created.')
-							res.redirect('/login');
+							res.redirect('/login')
 							return;
 						}
-					});
+					})
 					
 					
-				}
+				//}
 				
-			}));
+			//}))
 			client.release();
 		} 
 		catch(e){throw(e)}
@@ -86,9 +86,9 @@ module.exports = function (app) {
 			await client.query('BEGIN')
 			var pwd = await bcrypt.hash(req.body.password, 5);
 			var today= new Date().toISOString().slice(0, 10)
-			await JSON.stringify(client.query('SELECT id FROM organizationtb WHERE "email"=$1', [req.body.username], function(err, result) {
+			await JSON.stringify(client.query('SELECT registerId FROM organizationtb WHERE "registerId"=$1', [req.body.registerId], function(err, result) {
 				if(result.rows[0]){
-					req.flash('warning', "This email address is already registered.");
+					req.flash('warning', "This  is already registered.");
 					res.redirect('/join');
 				}
 				else{

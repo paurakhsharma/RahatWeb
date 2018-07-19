@@ -21,7 +21,11 @@ app.set('view engine', 'ejs')
 
 
 app.use(flash());
-app.use(session({secret: 'keyboard cat'}))
+app.use(session({
+    secret: 'ilovescotchscotchyscotchscotch', // session secret
+    resave: true,
+    saveUninitialized: true
+}));
 
 
 // app.listen(4000, () => {
