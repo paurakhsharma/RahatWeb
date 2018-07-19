@@ -132,6 +132,7 @@ module.exports = function (app) {
 		try{
 			const client = await pool.connect()
 			await client.query('BEGIN')
+			console.log('add disaster called')
 			var type=[];
 			var refined=[];
 			type.push(req.body.flood,req.body.landslide,req.body.drought,req.body.wildfire,req.body.hurricanes);
@@ -145,7 +146,7 @@ module.exports = function (app) {
 			
 			var type_instring=refined.toString();
 			var postedby='admin' 
-			var postedtime=new Date().toString(); 
+			var postedtime=new Date(); 
 			console.log(req.body.needs);
 
 			
@@ -170,27 +171,6 @@ module.exports = function (app) {
 		catch(e){throw(e)}
 	});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	app.post('/login2',async function(req,res){
 		
 		const client = await pool.connect()
@@ -207,8 +187,8 @@ module.exports = function (app) {
 		client.query('Select email,password from usertb',function(err,result){
 					//console.log(res.rows);
 					for(i in result.rows){
-					user.push(result.rows [i].email)
-					pwd.push(result.rows [i].password)
+					user.push(result.rows[i].email)
+					pwd.push(result.rows[i].password)
 					//console.log(res.rows [i].email)
 				}
 			var cursor=user.indexOf(curuser);
@@ -262,7 +242,7 @@ module.exports = function (app) {
 	// });
 	
 	app.get('/adddisaster', (req, res) => {
-		res.render('adddisaster')
+		res.render('org')
 	})
 
 	app.post('/login',	passport.authenticate('local', {
