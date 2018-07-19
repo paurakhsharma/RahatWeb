@@ -32,15 +32,15 @@ const pool = new Pool({
 
 module.exports = function (app) {
 
+	
+
 	app.get('/map', function (req, res) {
 		res.render('map')
 	  })
 	  
 	
 	app.get('/', function (req, res, next) {
-		res.render('index', {title: "Home", userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}});
-		
-		console.log(req.user);
+		res.render('index')
 	});
 
 	app.get('/join', function (req, res, next) {
@@ -52,7 +52,7 @@ module.exports = function (app) {
 	app.post('/join', async function (req, res) {
 		
 		try{
-			const client = await pool.connect()
+			
 			await client.query('BEGIN')
 			var pwd = await bcrypt.hash(req.body.password, 5)
 			var today= new Date().toISOString().slice(0, 10)
@@ -124,6 +124,17 @@ module.exports = function (app) {
 		}
 	});
 	
+	app.get('/getdisaster', async function (req, res) {
+	try{ const client = await pool.connect()
+		 await client.query('BEGIN')
+		 client.query("SELECT * FROM disastertb", (err, result) => {
+			 console.log(result.rows[0])
+			res.send(JSON.stringify({disaster: result.rows}))
+		})
+		client.release();
+	}catch(e){throw(e)}
+})
+
 	app.get('/login', function (req, res, next) {
 		if (req.isAuthenticated()) {
 			res.redirect('/account');
@@ -157,11 +168,6 @@ module.exports = function (app) {
 		}
 		res.redirect('/');
 	});
-
-	app.get('/adddisaster', (req, res) => {
-		res.render('adddisaster')
-	})
-	
 }
 
 passport.use('local', new  LocalStrategy({passReqToCallback : true}, (req, username, password, done) => {
