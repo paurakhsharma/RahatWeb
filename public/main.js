@@ -26,7 +26,12 @@ var map = L.map('map');
                 case 'Rupandehi':   return {color: "#8AEA3A"};
             }
         }
-    }).addTo(map);
+
+    }).bindPopup(function (layer) {
+        return layer.feature.properties.name;
+    }).on('click', function() { alert('Clicked on a member of the group!'); }).addTo(map);
     map.fitBounds(geojson.getBounds());
     map.setView([27.917, 84.924], 6.9);
+    map.marker([27.917, 84.924]);
+    
   });
