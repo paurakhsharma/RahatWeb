@@ -11,3 +11,7 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+
+# File for reference
+index.1.ejs
