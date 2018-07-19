@@ -20,11 +20,11 @@ app.set('view engine', 'ejs')
 
 
 app.use(flash());
-app.use(session({
-    secret: 'ilovescotchscotchyscotchscotch', // session secret
-    resave: true,
-    saveUninitialized: true
-}));
+// app.use(session({
+//     secret: 'ilovescotchscotchyscotchscotch', // session secret
+//     resave: true,
+//     saveUninitialized: true
+// }));
 
 app.get('/', (req, res) => {
     res.render('index',{})

@@ -40,9 +40,17 @@ module.exports = function (app) {
 	  })
 	  
 	
+<<<<<<< Updated upstream
 	app.get('/', function (req, res, next) {
 		res.render('index')
 	});
+=======
+	// app.get('/', function (req, res, next) {
+	// 	res.render('index', {title: "Home", userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}});
+		
+	// 	console.log(req.user);
+	// });
+>>>>>>> Stashed changes
 
 	app.get('/join', function (req, res, next) {
 		res.render('signup')
@@ -63,7 +71,7 @@ module.exports = function (app) {
 			// 		res.redirect('/join');
 			// 	}
 			// 	else{
-					client.query('INSERT INTO usertb (name, address, citizenshipid, phoneno, creationdate, email, password) VALUES ($1, $2, $3, $4, $5,$6,$7)', [req.body.name,req.body.address, req.body.citizenshipid,req.body.phoneno,today,req.body.email, pwd], function(err, result) {
+					client.query('INSERT INTO organizationtb (name, address, registrationno, telephone, registrationdate, email, password) VALUES ($1, $2, $3, $4, $5,$6,$7)', [req.body.name,req.body.address, req.body.regno,req.body.phoneno,today,req.body.email, pwd], function(err, result) {
 						if(err){console.log(err);}
 						else {
 						
@@ -144,9 +152,9 @@ module.exports = function (app) {
 			  });
 			
 			var type_instring=refined.toString();
-			var postedby='admin' 
+			var postedby=req.body.postedby 
 			var postedtime=new Date().toString(); 
-			console.log(req.body.needs);
+			//console.log(req.body.needs);
 
 			
 					client.query('INSERT INTO disastertb (type,location,affectedpeople,requirement,postedby,postedtime) VALUES ($1, $2, $3, $4, $5, $6)', [type_instring, req.body.location, req.body.numof, req.body.needs, postedby, postedtime], function(err, result) {
@@ -156,7 +164,7 @@ module.exports = function (app) {
 						client.query('COMMIT')
 							//console.log(result)
 							req.flash('success','User created.')
-							
+							//res.render('org')
 							return;
 						}
 					})
@@ -203,8 +211,13 @@ module.exports = function (app) {
 		
 		console.log(curuser)
 		console.log(curpwd)
+		let profile={
+			name:curuser,
+			password:curpwd
+		};
 		
-		client.query('Select email,password from usertb',function(err,result){
+		
+		client.query('Select email,password from organizationtb',function(err,result){
 					//console.log(res.rows);
 					for(i in result.rows){
 					user.push(result.rows [i].email)
@@ -215,7 +228,7 @@ module.exports = function (app) {
 			if(bcrypt.compareSync(curpwd,pwd[cursor])){
 				console.log("logged in");
 				loggedin=true;
-				res.render('org')
+				res.render('org',{disp: profile})
 
 
 				
@@ -261,6 +274,7 @@ module.exports = function (app) {
 	// 	res.redirect('/');
 	// });
 	
+<<<<<<< Updated upstream
 	app.get('/adddisaster', (req, res) => {
 		res.render('adddisaster')
 	})
@@ -278,6 +292,29 @@ module.exports = function (app) {
 		}
 		res.redirect('/');
 	});
+=======
+	// app.post('/login',	passport.authenticate('local', {
+	// 	successRedirect: '/account',
+	// 	failureRedirect: '/login',
+	// 	failureFlash: true
+	// 	}), function(req, res) {
+	// 		console.log('Thank you')
+	// 	if (req.body.remember) {
+	// 		req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // Cookie expires after 30 days
+	// 		} else {
+	// 		req.session.cookie.expires = false; // Cookie expires at end of session
+	// 	}
+	// 	res.redirect('/');
+	// });
+
+	app.get('/adddisaster', (req, res) => {
+		var profile={
+			email:"admin",
+			password:"admin"
+		}
+		res.render('org',{disp:profile})
+	})
+>>>>>>> Stashed changes
 	
 // }
 

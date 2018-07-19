@@ -54,7 +54,7 @@ var map = L.map('map');
                 return {color: "#ff0000"}}
         }
 
-    }).bindPopup(function (layer) {
+    }).off('click').bindPopup(function (layer) {
         modal.style.display = "block";
         
         return layer.feature.properties.name;

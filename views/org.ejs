@@ -1,6 +1,10 @@
 <html>
 <head>
   <title>Login form</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <script
@@ -8,9 +12,17 @@
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
 
+  <script>
+
+        $( "input[name='postedby']" ).val("niranjan")
+  </script>
+
 
 </head>
 <body>
+        <%= typeof disp.email!='undefined' ? disp.email : '' %> logged in
+        <br>
+        <a href="http://localhost:5000/">logout</a>
     <div class="container">
         <div class="col-sm-6 col-sm-offset-3">
         
@@ -20,12 +32,11 @@
             <!-- post disaster -->
             <form action="/adddisaster" method="POST" autocomplete="off">
                 <br>
-                <br>
-                <br>
+                
                 <hr>
                 <div class="form-group">
                         <label for="sel2">District:</label>
-                        <select class="form-control" id="sel2" name="location">
+                        <select class="form-control" id="sel2" name="location" required>
                                 <option>Achham</option>
                                 <option>Arghakhanchi</option>
                                 <option>Baglung</option>
@@ -124,21 +135,22 @@
                             <label><input type="checkbox" name="drought" value="drought">Drought</label>
                      </div>
                      <div class="checkbox">
-                            <label><input type="checkbox" name="hurricanes" value="hurricanes">Hurricanes</label>
+                            <label><input type="checkbox" name="earthquake" value="earthquake">Earthquake</label>
                      </div>
 
                     </div>  
                 
                 <div class="form-group">
                     <label>Number of Affected People</label>
-                    <input type="number" class="form-control" name="numof">
+                    <input type="number" class="form-control" name="numof" required>
                 </div>
                 <div class="form-group">
-                    <label for="requirements">Requirements(csv)</label>
+                    <label for="requirements">Requirements(csv recommended)</label>
                     <textarea class="form-control" rows="5" name="needs"></textarea>
                 </div>
-                <hr>
-        
+                
+                <input style="display:none;" type="text" name="postedby" value=<%= disp.name %> >
+            </hr>
             <button class="btn btn-success btn-block">Post</button>
             </form>
     
