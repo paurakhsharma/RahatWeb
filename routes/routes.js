@@ -32,16 +32,11 @@ const pool = new Pool({
 });
 
 module.exports = function (app) {
-		
 
-
-		
-
-		// define the about route
-		app.get('/map', function (req, res) {
+	app.get('/map', function (req, res) {
 		res.render('map')
-		})
-
+	  })
+	  
 	
 	app.get('/', function (req, res, next) {
 		res.render('index', {title: "Home", userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}});
@@ -49,7 +44,6 @@ module.exports = function (app) {
 		console.log(req.user);
 	});
 
-	
 	app.get('/join', function (req, res, next) {
 		res.render('signup')
 			//userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}}
@@ -69,7 +63,7 @@ module.exports = function (app) {
 			// 		res.redirect('/join');
 			// 	}
 			// 	else{
-					client.query('INSERT INTO usertb (name,address,citizenshipid,phoneno,creationdate,email, password) VALUES ($1, $2, $3, $4, $5,$6,$7)', [req.body.name,req.body.address, req.body.citizenshipid,req.body.phoneno,today,req.body.email, pwd], function(err, result) {
+					client.query('INSERT INTO usertb (name, address, citizenshipid, phoneno, creationdate, email, password) VALUES ($1, $2, $3, $4, $5,$6,$7)', [req.body.name,req.body.address, req.body.citizenshipid,req.body.phoneno,today,req.body.email, pwd], function(err, result) {
 						if(err){console.log(err);}
 						else {
 						
@@ -114,10 +108,7 @@ module.exports = function (app) {
 							return;
 						}
 					});
-					
-					
 				}
-				
 			}));
 			client.release();
 		} 
@@ -260,20 +251,23 @@ module.exports = function (app) {
 	// 	res.redirect('/');
 	// });
 	
-	// app.post('/login',	passport.authenticate('local', {
-	// 	successRedirect: '/account',
-	// 	failureRedirect: '/login',
-	// 	failureFlash: true
-	// 	}), function(req, res) {
-	// 	if (req.body.remember) {
-	// 		req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // Cookie expires after 30 days
-	// 		} else {
-	// 		req.session.cookie.expires = false; // Cookie expires at end of session
-	// 	}
-	// 	res.redirect('/');
-	// });
-	
-	
+	app.post('/login',	passport.authenticate('local', {
+		successRedirect: '/account',
+		failureRedirect: '/login',
+		failureFlash: true
+		}), function(req, res) {
+			console.log('Thank you')
+		if (req.body.remember) {
+			req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // Cookie expires after 30 days
+			} else {
+			req.session.cookie.expires = false; // Cookie expires at end of session
+		}
+		res.redirect('/');
+	});
+
+	app.get('/adddisaster', (req, res) => {
+		res.render('adddisaster')
+	})
 	
 // }
 

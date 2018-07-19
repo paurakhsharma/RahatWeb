@@ -26,30 +26,6 @@ app.use(session({
     saveUninitialized: true
 }));
 
-
-// app.listen(4000, () => {
-//   console.log("eth is working")
-
-//       pool.connect((err, client, done) => {
-//         // Handle connection errors
-//         if(err) {
-//           //done();
-//           return console.error(err);
-//         }
-
-//         pool.query('SELECT * FROM usertb', (err, result) => {
-//           if(err){
-//               return console.error('error running query', err);
-//           }
-          
-//           console.log(result.rows)
-//         }); 
-//       });
-        
-
-// });
-
-
 app.get('/', (req, res) => {
     res.render('index',{})
 })
