@@ -30,6 +30,10 @@ app.get('/', (req, res) => {
     res.render('index',{})
 })
 
+app.get('/login',function(req,res){
+    res.render('login');
+});
+
 require('./routes/routes.js')(app)
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))
