@@ -44,8 +44,11 @@ var map = L.map('map');
 
       featureCollection.features.push(feature);
     }
+
+    document.getElementById('map').style.zIndex = "1";
     // Get the modal
     var modal = document.getElementById('myModal');
+    modal.style.zIndex = '2';
     // Places names from database goes here
 
     var geojson = L.geoJSON(featureCollection, {
@@ -55,9 +58,16 @@ var map = L.map('map');
         }
 
     }).bindPopup(function (layer) {
-        modal.style.display = "block";
-        
-        return layer.feature.properties.name;
+        if(locationD.includes(layer.feature.properties.name)) {
+            console.log('This is called')                                                                                  
+            for(i=0;i<locationD.length;i++) {
+                if(locationD[i] == layer.feature.properties.name) {
+                    string = `${typeD[i]} <br> ${affectedpeople[i]} <br> ${requirement[i]} <br> ${postedby[i]} <br> ${postedtime[i]} `.toString()
+                    return string;
+                }
+            }
+           
+        }
     }).addTo(map);
     map.fitBounds(geojson.getBounds());
     map.setView([27.917, 84.924], 6.9);
