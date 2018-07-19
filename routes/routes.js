@@ -40,18 +40,19 @@ module.exports = function (app) {
 
 	
 	app.get('/join', function (req, res, next) {
-		res.render('join', {title: "Join", userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}});
+		res.render('signup')
+			//userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}}
 	});
 	
 	
-	app.post('/join/user', async function (req, res) {
+	app.post('/join', async function (req, res) {
 		
 		try{
 			const client = await pool.connect()
 			await client.query('BEGIN')
 			var pwd = await bcrypt.hash(req.body.password, 5);
 			var today= new Date().toISOString().slice(0, 10)
-			await JSON.stringify(client.query('SELECT id FROM usertb WHERE "email"=$1', [req.body.username], function(err, result) {
+			await JSON.stringify(client.query('SELECT email FROM usertb WHERE "email"=$1', [req.body.email], function(err, result) {
 				if(result.rows[0]){
 					req.flash('warning', "This email address is already registered.");
 					res.redirect('/join');
@@ -127,7 +128,7 @@ module.exports = function (app) {
 			res.redirect('/account');
 		}
 		else{
-			//for rendering in login.html
+			//for rendering in login.ejs
 			res.render('login', {title: "Log in", userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}});
 		}
 		

@@ -8,8 +8,9 @@ require('dotenv').config()
 const flash = require('connect-flash');
 
 const passport = require("passport")
-const request = require('request');
+const request = require('request')
 const session = require("express-session")
+app.use(require('cookie-parser')())
 
 
 app.use(bodyParser.json());
@@ -17,7 +18,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('public'))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-var path = require('path');
 
 
 app.use(flash());
@@ -51,6 +51,6 @@ app.get('/', (req, res) => {
     res.render('index',{})
 })
 
-require('./lib/routes.js')(app)
+require('./routes/routes.js')(app)
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))
