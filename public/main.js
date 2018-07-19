@@ -28,8 +28,9 @@ var map = L.map('map');
         }
 
     }).bindPopup(function (layer) {
+        alert(`Clicked on a member of the group!${layer.feature.properties.name}`
         return layer.feature.properties.name;
-    }).on('click', function() { alert('Clicked on a member of the group!'); }).addTo(map);
+    }).on('click', function(layer) { alert(`Clicked on a member of the group!${layer.feature.properties.name}`); }).addTo(map);
     map.fitBounds(geojson.getBounds());
     map.setView([27.917, 84.924], 6.9);
     map.marker([27.917, 84.924]);
