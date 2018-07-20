@@ -44,6 +44,8 @@ var map = L.map('map');
 
       featureCollection.features.push(feature);
     }
+
+    //document.getElementById('map').style.zIndex = "1";
     // Get the modal
     // var modal = document.getElementById('myModal');
     // Places names from database goes here
@@ -54,21 +56,17 @@ var map = L.map('map');
                 return {color: "#ff0000"}}
         }
 
-    }).off('click').bindPopup(function (layer) {
-        // modal.style.display = "block";
-        
-        var pointto =locationD.indexOf(layer.feature.properties.name) 
-        if( pointto > -1){
-           var show=typeD[pointto]+'<br>'+locationD[pointto]+'<br>'+affectedpeople[pointto]+'<br>'+requirement[pointto]+'<br>'+postedby[pointto]+'<br>'+postedtime[pointto];
-        //    $('div.modal-body').html(typeD[pointto]+' '+locationD[pointto]+' '+affectedpeople[pointto]+' '+requirement[pointto]+' '+postedby[pointto]+' '+postedtime[pointto])
-
-        }else{
-            show=layer.feature.properties.name;
+    }).bindPopup(function (layer) {
+        if(locationD.includes(layer.feature.properties.name)) {
+            console.log('This is called')                                                                                  
+            for(i=0;i<locationD.length;i++) {
+                if(locationD[i] == layer.feature.properties.name) {
+                    string = `${typeD[i]} <br> ${affectedpeople[i]} <br> ${requirement[i]} <br> ${postedby[i]} <br> ${postedtime[i]} `.toString()
+                    return string;
+                }
+            }
+           
         }
-        
-
-        
-        return show;
     }).addTo(map);
     map.fitBounds(geojson.getBounds());
     map.setView([27.917, 84.924], 6.9);
