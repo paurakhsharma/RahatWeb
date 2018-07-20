@@ -42,6 +42,7 @@ module.exports = function (app) {
 	
 
 	app.get('/', function (req, res, next) {
+
 		res.render('index')
 	});
 
@@ -147,13 +148,13 @@ module.exports = function (app) {
 			  });
 			
 			var type_instring=refined.toString();
-
 			var postedby=req.body.postedby 
 			if(postedby== 'undefined'){
 				postedby="admin"
 				console.log(postedby)
 			}
 			var postedtime=new Date().toString(); 
+			//console.log(req.body.needs);
 
 			
 					client.query('INSERT INTO disastertb (type,location,affectedpeople,requirement,postedby,postedtime) VALUES ($1, $2, $3, $4, $5, $6)', [type_instring, req.body.location, req.body.numof, req.body.needs, postedby, postedtime], function(err, result) {
@@ -229,6 +230,20 @@ module.exports = function (app) {
 		client.release();
 	}catch(e){throw(e)}
 })
+
+	// app.get('/login', function (req, res, next) {
+	// 	if (req.isAuthenticated()) {
+	// 		res.redirect('/account');
+	// 	}
+	// 	else{
+	// 		//for rendering in login.ejs
+	// 		res.render('login', {title: "Log in", userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}});
+	// 	}
+	// })
+		
+
+
+
 
 	app.get('/adddisaster', (req, res) => {
 		var profile={

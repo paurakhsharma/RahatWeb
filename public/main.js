@@ -20,7 +20,7 @@ var map = L.map('map');
                 postedby.push(disasterData.postedby.trim())
                 postedtime.push(disasterData.postedtime.slice(0,10))
             })
-            console.log(typeD, locationD, affectedpeople, requirement, postedby, postedtime)
+            //console.log(typeD, locationD, affectedpeople, requirement, postedby, postedtime)
         })
         .catch(function (error) {
             // handle error
@@ -64,7 +64,7 @@ var map = L.map('map');
                     string = `
                     <span style="color: red;"> <b>${typeD[i]}</b></span><br>
                     <b style="font-size: 20px;  ">${layer.feature.properties.name}</b><br>
-                   <b>No. of affected people: ${affectedpeople[i]}</b> <br> <b>Essential Requirements: ${requirement[i]}</b> <br><b>Posted by: ${postedby[i]}</b> <br><b>Posted at: ${postedtime[i]}</b> `.toString()
+                   <b>No. of affected people: ${affectedpeople[i]}</b> <br> <b>Essential Requirements: ${requirement[i]}</b> <br><b>Posted by: ${postedby[i]}</b> <br><b>Posted at: ${postedtime[i]}</b> <button class="btn btn-success" value="donate">Donate</button>`.toString()
                     return string;
                 }
             } 
