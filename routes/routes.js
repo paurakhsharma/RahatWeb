@@ -147,7 +147,6 @@ module.exports = function (app) {
 			  });
 			
 			var type_instring=refined.toString();
-<<<<<<< HEAD
 			var postedby=req.body.postedby 
 			if(postedby== 'undefined'){
 				postedby="admin"
@@ -155,11 +154,6 @@ module.exports = function (app) {
 			}
 			var postedtime=new Date().toString(); 
 			//console.log(req.body.needs);
-=======
-			var postedby='admin' 
-			var postedtime=new Date(); 
-			console.log(req.body.needs);
->>>>>>> 5a9be3861bb278c49e6037c859d3576102fb9f70
 
 			
 					client.query('INSERT INTO disastertb (type,location,affectedpeople,requirement,postedby,postedtime) VALUES ($1, $2, $3, $4, $5, $6)', [type_instring, req.body.location, req.body.numof, req.body.needs, postedby, postedtime], function(err, result) {
@@ -236,7 +230,6 @@ module.exports = function (app) {
 	}catch(e){throw(e)}
 })
 
-<<<<<<< HEAD
 	// app.get('/login', function (req, res, next) {
 	// 	if (req.isAuthenticated()) {
 	// 		res.redirect('/account');
@@ -246,85 +239,6 @@ module.exports = function (app) {
 	// 		res.render('login', {title: "Log in", userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}});
 	// 	}
 	// })
-=======
-	app.get('/login', function (req, res, next) {
-		if (req.isAuthenticated()) {
-			res.redirect('/account');
-		}
-		else{
-			//for rendering in login.ejs
-			res.render('login', {title: "Log in", userData: req.user, messages: {danger: req.flash('danger'), warning: req.flash('warning'), success: req.flash('success')}});
-		}
-	})
-		
-	// });
-	
-	// app.get('/logout', function(req, res){
-		
-	// 	console.log(req.isAuthenticated());
-	// 	req.logout();
-	// 	console.log(req.isAuthenticated());
-	// 	req.flash('success', "Logged out. See you soon!");
-	// 	res.redirect('/');
-	// });
-	
-	app.get('/adddisaster', (req, res) => {
-		res.render('org')
-	})
-
-	app.post('/login',	passport.authenticate('local', {
-		successRedirect: '/account',
-		failureRedirect: '/login',
-		failureFlash: true
-		}), function(req, res) {
-			console.log('Thank you')
-		if (req.body.remember) {
-			req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // Cookie expires after 30 days
-			} else {
-			req.session.cookie.expires = false; // Cookie expires at end of session
-		}
-		res.redirect('/');
-	});
-	
-// }
-
-
-// passport.use('local', new  LocalStrategy({passReqToCallback : true}, (req, username, password, done) => {
-	
-// 	loginAttempt();
-// 	async function loginAttempt() {
-		
-		
-// 		const client = await pool.connect()
-// 		try{
-// 			await client.query('BEGIN')
-// 			var currentAccountsData = await JSON.stringify(client.query('SELECT id, firstName, email, password FROM "users" WHERE "email"=$1', [username], function(err, result) {
-				
-// 				if(err) {
-// 					return done(err)
-// 				}	
-// 				if(result.rows[0] == null){
-// 					req.flash('danger', "Oops. Incorrect login details.");
-// 					return done(null, false);
-// 				}
-// 				else{
-// 					bcrypt.compare(password, result.rows[0].password, function(err, check) {
-// 						if (err){
-// 							console.log('Error while checking password');
-// 							return done();
-// 						}
-// 						else if (check){
-// 							return done(null, [{email: result.rows[0].email, firstName: result.rows[0].firstName}]);
-// 						}
-// 						else{
-// 							req.flash('danger', "Oops. Incorrect login details.");
-// 							return done(null, false);
-// 						}
-// 					});
-// 				}
-// 			}))
-// 		}
->>>>>>> 5a9be3861bb278c49e6037c859d3576102fb9f70
 		
 
 
