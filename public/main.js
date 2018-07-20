@@ -28,7 +28,7 @@ var map = L.map('map');
         })
         .then(function () {
             // always executed
-        });
+    });
         
   L.esri.get('https://www.arcgis.com/sharing/content/items/62914b2820c24d4e95710ebae77937cb/data', {}, function (error, response) {
     var features = response.operationalLayers[0].featureCollection.layers[0].featureSet.features;
@@ -64,16 +64,15 @@ var map = L.map('map');
                     string = `
                     <span style="color: red;"> <b>${typeD[i]}</b></span><br>
                     <b style="font-size: 20px;  ">${layer.feature.properties.name}</b><br>
-                   <b>No. of people affected: ${affectedpeople[i]}</b> <br> <b>Essential Requirements: ${requirement[i]}</b> <br><b>Posted by: ${postedby[i]}</b> <br><b>Posted at: ${postedtime[i]}</b> `.toString()
+                   <b>No. of affected people: ${affectedpeople[i]}</b> <br> <b>Essential Requirements: ${requirement[i]}</b> <br><b>Posted by: ${postedby[i]}</b> <br><b>Posted at: ${postedtime[i]}</b> `.toString()
                     return string;
                 }
-            }
-           
+            } 
         }
         return layer.feature.properties.name
     }).addTo(map);
     map.fitBounds(geojson.getBounds());
-    map.setView([27.917, 84.924], 6.9);
+    map.setView([28.3, 84.924], 6.9);
 
 
     
