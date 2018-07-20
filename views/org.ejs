@@ -20,9 +20,13 @@
 
 </head>
 <body>
-        <%= typeof disp.email!='undefined' ? disp.email : '' %> logged in
+    <div style="float:left;background-color:#111;color:#fff">
+        <%= typeof disp.name!='undefined' ? disp.name : '' %> logged in
+      
+        
         <br>
         <a href="http://localhost:5000/">logout</a>
+    </div>      
     <div class="container">
         <div class="col-sm-6 col-sm-offset-3">
         
