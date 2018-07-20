@@ -61,16 +61,19 @@ var map = L.map('map');
             console.log('This is called')                                                                                  
             for(i=0;i<locationD.length;i++) {
                 if(locationD[i] == layer.feature.properties.name) {
-                    string = `${typeD[i]} <br> ${affectedpeople[i]} <br> ${requirement[i]} <br> ${postedby[i]} <br> ${postedtime[i]} `.toString()
+                    string = `
+                    <span style="color: red;"> <b>${typeD[i]}</b></span><br>
+                    <b style="font-size: 20px;  ">${layer.feature.properties.name}</b><br>
+                   <b>No. of people affected: ${affectedpeople[i]}</b> <br> <b>Essential Requirements: ${requirement[i]}</b> <br><b>Posted by: ${postedby[i]}</b> <br><b>Posted at: ${postedtime[i]}</b> `.toString()
                     return string;
                 }
             }
            
         }
+        return layer.feature.properties.name
     }).addTo(map);
     map.fitBounds(geojson.getBounds());
     map.setView([27.917, 84.924], 6.9);
-    L.marker([27.917, 84.924]).addTo(map);
 
 
     
